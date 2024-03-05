@@ -40,6 +40,7 @@
 #pragma GCC diagnostic ignored "-Wctor-dtor-privacy"
 #pragma GCC diagnostic ignored "-Woverflow"
 
+#include "absl/log/globals.h"
 #include "ortools/base/version.h"
 #include "ortools/glop/lp_solver.h"
 #include "ortools/glop/revised_simplex.h"
@@ -51,7 +52,6 @@
 #include "ortools/util/time_limit.h"
 
 #include "ortools/base/logging.h"
-#include "ortools/base/vlog_is_on.h"
 
 #include "lpi/lpi.h"
 #include "scip/pub_message.h"
@@ -2942,12 +2942,12 @@ SCIP_RETCODE SCIPlpiSetIntpar(
       SCIPdebugMessage("SCIPlpiSetIntpar: SCIP_LPPAR_LPINFO -> %d.\n", ival);
       if ( ival == 0 )
       {
-         (void) google::SetVLOGLevel("*", google::GLOG_INFO);
+         (void) absl::SetVLogLevel(absl::string_view("*"), google::GLOG_INFO);
          lpi->lp_info = false;
       }
       else
       {
-         (void) google::SetVLOGLevel("*", google::GLOG_ERROR);
+         (void) absl::SetVLogLevel(absl::string_view("*"), google::GLOG_ERROR);
          lpi->lp_info = true;
       }
       break;
